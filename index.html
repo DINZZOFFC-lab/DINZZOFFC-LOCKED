@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Locked By DinzzOffc</title>
     <style>
         * {
@@ -11,7 +11,7 @@
             -webkit-user-select: none;
         }
         body {
-            background-color: #080a10;
+            background-color: #0d0f14;
             color: #fff;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
@@ -22,122 +22,141 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            position: relative;
         }
+        
+        /* --- EFEK PARTIKEL LATAR BELAKANG --- */
+        .bg-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(255, 59, 48, 0.4); /* Warna merah transparan */
+            border-radius: 50%;
+            animation: melayang 8s infinite linear;
+        }
+        /* Mengatur posisi dan ukuran acak untuk tiap partikel */
+        .p1 { width: 6px; height: 6px; left: 10%; animation-duration: 6s; animation-delay: 0s; }
+        .p2 { width: 10px; height: 10px; left: 25%; animation-duration: 9s; animation-delay: 2s; }
+        .p3 { width: 4px; height: 4px; left: 45%; animation-duration: 5s; animation-delay: 1s; }
+        .p4 { width: 8px; height: 8px; left: 65%; animation-duration: 11s; animation-delay: 3s; }
+        .p5 { width: 5px; height: 5px; left: 85%; animation-duration: 7s; animation-delay: 0s; }
+        
+        @keyframes melayang {
+            0% { transform: translateY(105vh) scale(0.5); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Kotak Utama Konten */
         .container {
+            position: relative;
+            z-index: 2; /* Supaya kotak berada di atas partikel */
             text-align: center;
             width: 90%;
             max-width: 400px;
-            background: rgba(15, 22, 38, 0.9);
-            padding: 30px 25px;
-            border-radius: 20px;
+            background: rgba(20, 26, 38, 0.95);
+            padding: 35px 25px;
+            border-radius: 24px;
             border: 2px solid #ff3b30;
-            box-shadow: 0 0 20px rgba(255, 59, 48, 0.3);
+            box-shadow: 0 0 25px rgba(255, 59, 48, 0.4);
+            transition: transform 0.1s;
         }
         
-        .glitch-title {
-            font-size: 24px;
+        .gembok {
+            font-size: 65px;
+            margin-bottom: 15px;
+            animation: pulseGembok 2s infinite alternate;
+        }
+        @keyframes pulseGembok {
+            0% { transform: scale(1); filter: drop-shadow(0 0 5px #ff3b30); }
+            100% { transform: scale(1.05); filter: drop-shadow(0 0 15px #ff3b30); }
+        }
+
+        h2 {
+            font-size: 20px;
             font-weight: 800;
             color: #ff3b30;
-            text-transform: uppercase;
             letter-spacing: 1px;
+            margin-top: 0;
             margin-bottom: 15px;
-            position: relative;
-            animation: glitchAnim 1s infinite linear alternate-reverse;
-        }
-        @keyframes glitchAnim {
-            0% { text-shadow: 2px 0 0 #00ffff, -2px 0 0 #ff3b30; }
-            50% { text-shadow: -2px 0 0 #00ffff, 2px 0 0 #ff3b30; }
-            100% { text-shadow: 2px 0 0 #00ffff, -2px 0 0 #ff3b30; }
         }
 
         p {
-            color: #d1d5db;
+            color: #9ca3af;
             font-size: 14px;
             line-height: 1.6;
-            margin-bottom: 25px;
-        }
-        
-        .timer-box {
-            font-size: 36px;
-            font-weight: bold;
-            color: #ffcc00;
-            font-family: 'Courier New', Courier, monospace;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid #ffcc00;
-            margin-bottom: 25px;
-            letter-spacing: 2px;
+            margin-bottom: 30px;
         }
 
-        .btn-action {
-            background: linear-gradient(135deg, #ff3b30, #b31b1b);
+        .btn-pulihkan {
+            background: linear-gradient(135deg, #34c759, #248a3d);
             color: white;
             border: none;
-            padding: 15px;
-            font-size: 15px;
+            padding: 16px;
+            font-size: 16px;
             font-weight: bold;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 4px 15px rgba(255, 59, 48, 0.4);
-            transition: transform 0.1s;
+            box-shadow: 0 4px 15px rgba(52, 199, 89, 0.3);
+            text-transform: uppercase;
         }
-        .btn-action:active {
-            transform: scale(0.98);
+
+        /* Animasi Getar */
+        @keyframes getarEkstrem {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+        .efek-getar {
+            animation: getarEkstrem 0.1s infinite;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div style="font-size: 50px; margin-bottom: 10px;">⚠️</div>
-        <div class="glitch-title">DEVICE LOCKED</div>
+    <div class="bg-particles">
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+        <div class="particle p5"></div>
+    </div>
+
+    <div class="container" id="mainBox">
+        <div class="gembok">🔒</div>
+        <h2>YOUR HANDPHONE LOCKED BY DINZZOFFC</h2>
+        <p>Sistem mendeteksi adanya interaksi tidak dikenal. Ketuk tombol di bawah untuk memulai proses pemulihan UI sistem ke kondisi semula.</p>
         
-        <p>Perangkat Anda telah dikunci oleh sistem keamanan <b>DinzzOffc</b>. Untuk membuka kembali akses penuh sistem, silakan lakukan penyelesaian administrasi ke DANA <b>081xxxxxxxxx</b>.</p>
-        
-        <div class="timer-box" id="timer">00:60</div>
-        
-        <button class="btn-action" onclick="bukaKunci()">PROSES PEMBUKAAN</button>
+        <button class="btn-pulihkan" onclick="mulaiPrank()">PULIHKAN SEKARANG</button>
     </div>
 
     <script>
-        let waktu = 60;
-        const timerElement = document.getElementById('timer');
-        
-        const hitungMundur = setInterval(() => {
-            waktu--;
-            let detik = waktu < 10 ? "0" + waktu : waktu;
-            timerElement.innerText = "00:" + detik;
+        function mulaiPrank() {
+            const mainBox = document.getElementById("mainBox");
+            mainBox.classList.add("efek-getar");
             
-            if (waktu <= 0) {
-                clearInterval(hitungMundur);
-                timerElement.innerText = "TIME OUT";
-                timerElement.style.color = "#ff3b30";
-                timerElement.style.borderColor = "#ff3b30";
-            }
-        }, 1000);
-
-        function bersuara() {
-            let pesanSuara = new SpeechSynthesisUtterance("HAHAHA. YOUR DEVICE ALREADY LOCKED BY DINZZ OFF C");
-            pesanSuara.lang = "en-US";
-            pesanSuara.rate = 0.9;     
-            pesanSuara.pitch = 0.8;    
-            window.speechSynthesis.speak(pesanSuara);
-        }
-
-        document.body.onclick = function() {
-            bersuara();
-            document.body.onclick = null; 
-        };
-
-        function bukaKunci() {
-            bersuara();
-
             setTimeout(() => {
-                // Hanya memunculkan pesan ancaman palsu saja
-                alert("YAHAHA YOUR DATA ALREADY SENT TO PINJOL! 💸😈");
-            }, 500);
+                // Loop pop-up simulasi aman (9 kali)
+                for (let i = 1; i <= 9; i++) {
+                    alert("⚠️ UI Sistem tidak menanggapi. (" + i + "/5)");
+                }
+                
+                alert("🎉 HAHAHA YOUR DATA IS SAFE SANTAII!! 😂🔥");
+                
+                
+                mainBox.classList.remove("efek-getar");
+            }, 300);
         }
     </script>
 
