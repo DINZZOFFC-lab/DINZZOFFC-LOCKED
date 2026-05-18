@@ -9,10 +9,9 @@
             box-sizing: border-box;
             user-select: none;
             -webkit-user-select: none;
-            touch-action: none;
         }
         body {
-            background-color: #0d0d0d;
+            background-color: #050505;
             color: #fff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
@@ -23,13 +22,11 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            transition: background 0.1s;
         }
         .container {
             text-align: center;
             width: 90%;
             max-width: 400px;
-            transition: opacity 0.3s;
         }
         .icon-lock {
             font-size: 60px;
@@ -57,62 +54,198 @@
             width: 100%;
         }
 
-        /* --- EFEK SIMULASI MATI TOTAL --- */
-        .mode-matot {
-            background-color: #000000 !important;
-            cursor: none !important;
-        }
-        .mode-matot .container {
-            opacity: 0 !important; /* Menghilangkan semua tombol & teks */
-            pointer-events: none !important;
+        /* ================= TAMPILAN EKSTREM HACKED ================= */
+        #hackedScreen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        /* Teks eror sistem setelah mati */
-        .teks-eror {
-            display: none;
+        /* Efek Gemetar Layar Rusak */
+        @keyframes glitchGetar {
+            0% { transform: translate(2px, 1px) skew(2deg); }
+            20% { transform: translate(-2px, -2px) skew(-2deg); }
+            40% { transform: translate(0px, 3px) scaleY(1.01); }
+            60% { transform: translate(3px, -1px) skew(4deg); }
+            80% { transform: translate(-3px, 2px) skew(-4deg); }
+            100% { transform: translate(1px, -2px) skew(0deg); }
+        }
+        .efek-glitch {
+            animation: glitchGetar 0.1s infinite;
+            border: 4px solid #ff3b30;
+        }
+
+        .alert-box {
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        .danger-title {
             color: #ff3b30;
-            font-family: 'Courier New', Courier, monospace;
+            font-size: 26px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255,59,48,0.8);
+            margin-bottom: 5px;
+        }
+        .danger-sub {
+            color: #fff;
             font-size: 14px;
-            text-align: left;
-            width: 85%;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        
+        /* Ikon Gembok Api Merah */
+        .gembok-merah {
+            font-size: 70px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px #ff3b30;
+        }
+
+        /* Loading Bar Erasing Data */
+        .progress-container {
+            width: 100%;
+            background-color: #222;
+            border: 2px solid #ff3b30;
+            height: 25px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #ff3b30;
+            transition: width 0.1s linear;
+        }
+        .progress-text {
             position: absolute;
-            top: 40px;
+            width: 100%;
+            top: 3px;
+            left: 0;
+            font-size: 12px;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+        }
+
+        /* Log Data Berjalan Cepat */
+        .log-box {
+            width: 100%;
+            height: 120px;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 11px;
+            color: #00ff00;
+            text-align: left;
+            overflow: hidden;
+            white-space: nowrap;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" id="screenAwal">
         <div class="icon-lock">🔒</div>
-        <h2>SISTEM TERKUNCI</h2>
-        <p>Silakan klik tombol di bawah untuk memverifikasi ulang perangkat Anda.</p>
-        <button class="btn-action" onclick="simulasiMatot()">Verifikasi Perangkat</button>
+        <h2>DEVICE LOCKED BY DINZZOFFC</h2>
+        <p>Sistem mendeteksi aktivitas mencurigakan. Silakan klik tombol di bawah untuk memverifikasi perangkat.</p>
+        <button class="btn-action" onclick="mulaiHacked()">Verifikasi Perangkat</button>
     </div>
 
-    <div class="teks-eror" id="errorLog">
-        [CRITICAL] KERNEL PANIC: Mode_Exception_Handler<br>
-        [CRITICAL] System corrupted at address: 0x000F321A<br>
-        [INFO] Wiping internal storage block... 100%<br>
-        [INFO] Device hardware damaged.<br><br>
-        <span style="color: #fff;">Pranked by DinzzOffc! 😂<br>Gak usah panik, tinggal close aja tab browsernya atau pencet tombol Home HP-mu!</span>
+    <div id="hackedScreen">
+        <div class="alert-box">
+            <div class="gembok-merah">🔥🔒🔥</div>
+            <div class="danger-title">⚠️ CRITICAL SECURITY BREACH! ⚠️</div>
+            <div class="danger-sub">DEVICE LOCKED BY DINZZOFFC - RECOVERY FAILED</div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="myBar"></div>
+                <div class="progress-text" id="barText">ATTEMPTING EMERGENCY DATA WIPE... 0%</div>
+            </div>
+
+            <div class="log-box" id="logBox">
+                [sys-init] Loading exploit payload...<br>
+            </div>
+        </div>
     </div>
 
     <script>
-        function simulasiMatot() {
-            // 1. Paksa layar penuh agar navigasi browser hilang
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.webkitRequestFullscreen) {
-                document.documentElement.webkitRequestFullscreen();
-            }
+        const logs = [
+            "[unauthorized] Access detected: #DINZZOFFC_HACK",
+            "[sudo-code] override_system_biometric: DENIED",
+            "[sudo-code] injecting_kernel_payload... SUCCESS",
+            "[security] Integrity compromised! Error: 0x8004100C",
+            "[dump] Extracting contact list...",
+            "[dump] Extracting photos and gallery...",
+            "[wipe] Target: /dev/block/bootdevice/by-name/userdata",
+            "[wipe] Deleting system partition...",
+            "[sys-error] Overheating detected! Core Temp: 94C",
+            "[warning] DO NOT POWER OFF DEVICE!"
+        ];
 
-            // 2. Bikin efek layar hitam total (seolah HP mati)
-            document.body.classList.add("mode-matot");
+        function mulaiHacked() {
+            // Hide layar awal, tampilin layar hacked
+            document.getElementById("screenAwal").style.display = "none";
+            const hackedScreen = document.getElementById("hackedScreen");
+            hackedScreen.style.display = "flex";
+            hackedScreen.classList.add("efek-glitch");
 
-            // 3. Setelah 3 detik HP "mati", muncul teks eror sistem berkedip ala hacker/kerusakan hardware
-            setTimeout(() => {
-                document.getElementById("errorLog").style.display = "block";
-            }, 3000);
+            // Jalankan teks log ala hacker berjalan
+            let logIdx = 0;
+            const logBox = document.getElementById("logBox");
+            const logInterval = setInterval(() => {
+                if (logIdx < logs.length) {
+                    logBox.innerHTML += logs[logIdx] + "<br>";
+                    logIdx++;
+                } else {
+                    clearInterval(logInterval);
+                }
+            }, 300);
+
+            // Jalankan Loading Bar Merah sampai 94%
+            let width = 0;
+            const bar = document.getElementById("myBar");
+            const barText = document.getElementById("barText");
+            
+            const progressInterval = setInterval(() => {
+                if (width >= 94) {
+                    clearInterval(progressInterval);
+                    // Pas mentok 94%, langsung tembak pake Pop-Up Alert beruntun!
+                    jalankanAlert();
+                } else {
+                    width += 2;
+                    bar.style.width = width + '%';
+                    barText.innerText = "ERASING INTERNAL STORAGE... " + width + "%";
+                }
+            }, 80);
+        }
+
+        function jalankanAlert() {
+            // Alert bertubi-tubi biar makin panik pas loadingnya selesai
+            alert("🚨 SYSTEM ERROR: UI Sistem tidak menanggapi!");
+            alert("🚨 Peringatan: Kerusakan hardware terdeteksi akibat Overheating!");
+            alert("🚨 Proses penghapusan data selesai 94%. Gagal membatalkan.");
+            
+            // Pop up penutup tanda cuma prank
+            alert("Wkwkwk panik ya?! 😂 Di-prank sama DinzzOffc! Aman kok, data kamu gak dihapus. Tinggal close aja tab browser ini! 🔥");
+            
+            // Kembalikan ke normal
+            document.getElementById("hackedScreen").style.display = "none";
+            document.getElementById("screenAwal").style.display = "flex";
+            document.getElementById("hackedScreen").classList.remove("efek-glitch");
         }
     </script>
 
