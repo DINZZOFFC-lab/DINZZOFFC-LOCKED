@@ -9,10 +9,10 @@
             box-sizing: border-box;
             user-select: none;
             -webkit-user-select: none;
-            touch-action: none; /* Mengunci total scroll dan zoom layar HP */
+            touch-action: none;
         }
         body {
-            background-color: #000;
+            background-color: #0d0d0d;
             color: #fff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
@@ -23,11 +23,13 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            transition: background 0.1s;
         }
         .container {
             text-align: center;
             width: 90%;
             max-width: 400px;
+            transition: opacity 0.3s;
         }
         .icon-lock {
             font-size: 60px;
@@ -44,7 +46,7 @@
             margin-bottom: 30px;
         }
         .btn-action {
-            background-color: #ff3b30; /* Ganti merah biar makin serem */
+            background-color: #007aff;
             color: white;
             border: none;
             padding: 15px 30px;
@@ -53,61 +55,64 @@
             border-radius: 12px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 4px 15px rgba(255, 59, 48, 0.4);
         }
 
-        /* --- ANIME LAYAR RUSAK PARAH --- */
-        @keyframes hancur {
-            0% { transform: translate(3px, 2px) skew(5deg); filter: hue-rotate(0deg) invert(0); }
-            20% { transform: translate(-3px, -2px) skew(-5deg); filter: hue-rotate(90deg) invert(1); }
-            40% { transform: translate(0px, 3px) inset(2px); filter: hue-rotate(180deg); }
-            60% { transform: translate(4px, -1px) skew(10deg); filter: hue-rotate(270deg) invert(1); }
-            80% { transform: translate(-2px, 2px) skew(-10deg); }
-            100% { transform: translate(1px, -2px) skew(0deg); filter: hue-rotate(360deg) invert(0); }
+        /* --- EFEK SIMULASI MATI TOTAL --- */
+        .mode-matot {
+            background-color: #000000 !important;
+            cursor: none !important;
         }
-        .total-crash {
-            animation: hancur 0.1s infinite !important;
-            background-color: #ff0000 !important;
-            pointer-events: none !important; /* Mematikan semua fungsi klik di luar alert */
+        .mode-matot .container {
+            opacity: 0 !important; /* Menghilangkan semua tombol & teks */
+            pointer-events: none !important;
+        }
+
+        /* Teks eror sistem setelah mati */
+        .teks-eror {
+            display: none;
+            color: #ff3b30;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            text-align: left;
+            width: 85%;
+            position: absolute;
+            top: 40px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="konten">
-        <div class="icon-lock">⚠️</div>
-        <h2>CRITICAL SYSTEM ERROR</h2>
-        <p>Perangkat Anda telah dikunci oleh DinzzOffc akibat pelanggaran sistem. Ketuk tombol di bawah untuk perbaikan otomatis.</p>
-        <button class="btn-action" id="tombolGembok" onclick="eksekusiCrash()">PERBAIKI SEKARANG</button>
+    <div class="container">
+        <div class="icon-lock">🔒</div>
+        <h2>SISTEM TERKUNCI</h2>
+        <p>Silakan klik tombol di bawah untuk memverifikasi ulang perangkat Anda.</p>
+        <button class="btn-action" onclick="simulasiMatot()">Verifikasi Perangkat</button>
+    </div>
+
+    <div class="teks-eror" id="errorLog">
+        [CRITICAL] KERNEL PANIC: Mode_Exception_Handler<br>
+        [CRITICAL] System corrupted at address: 0x000F321A<br>
+        [INFO] Wiping internal storage block... 100%<br>
+        [INFO] Device hardware damaged.<br><br>
+        <span style="color: #fff;">Pranked by DinzzOffc! 😂<br>Gak usah panik, tinggal close aja tab browsernya atau pencet tombol Home HP-mu!</span>
     </div>
 
     <script>
-        function eksekusiCrash() {
-            const body = document.body;
-            
-            // 1. Paksa masuk mode Full Screen biar bar browser hilang!
+        function simulasiMatot() {
+            // 1. Paksa layar penuh agar navigasi browser hilang
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen();
             } else if (document.documentElement.webkitRequestFullscreen) {
-                document.documentElement.webkitRequestFullscreen(); // Untuk Safari/iOS
+                document.documentElement.webkitRequestFullscreen();
             }
 
-            // 2. Aktifkan animasi layar hancur dan kedap-kedip pelangi-merah
-            body.classList.add("total-crash");
+            // 2. Bikin efek layar hitam total (seolah HP mati)
+            document.body.classList.add("mode-matot");
 
-            // 3. Loop Alert Bertubi-tubi yang gak bisa di-close dengan gampang
+            // 3. Setelah 3 detik HP "mati", muncul teks eror sistem berkedip ala hacker/kerusakan hardware
             setTimeout(() => {
-                // Total ada 10 alert berturut-turut. Korban dijamin capek mencet OK
-                for (let i = 1; i <= 10; i++) {
-                    alert("🚨 CRITICAL WARNING (" + i + "/10): Trojans detected in system root!");
-                }
-                
-                alert("SYSTEM DEAD: Sini sungkem dulu sama DinzzOffc baru HP-nya lancar lagi 😂");
-                
-                // Kembalikan normal setelah siksaan selesai
-                body.classList.remove("total-crash");
-                if (document.exitFullscreen) { document.exitFullscreen(); }
-            }, 300);
+                document.getElementById("errorLog").style.display = "block";
+            }, 3000);
         }
     </script>
 
