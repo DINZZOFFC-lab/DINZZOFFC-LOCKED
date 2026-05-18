@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Locked By DinzzOffc</title>
     <style>
         * {
@@ -11,9 +11,9 @@
             -webkit-user-select: none;
         }
         body {
-            background-color: #050505;
+            background-color: #080a10;
             color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -27,225 +27,117 @@
             text-align: center;
             width: 90%;
             max-width: 400px;
+            background: rgba(15, 22, 38, 0.9);
+            padding: 30px 25px;
+            border-radius: 20px;
+            border: 2px solid #ff3b30;
+            box-shadow: 0 0 20px rgba(255, 59, 48, 0.3);
         }
-        .icon-lock {
-            font-size: 60px;
-            margin-bottom: 20px;
+        
+        .glitch-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ff3b30;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            position: relative;
+            animation: glitchAnim 1s infinite linear alternate-reverse;
         }
-        h2 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            font-weight: 600;
+        @keyframes glitchAnim {
+            0% { text-shadow: 2px 0 0 #00ffff, -2px 0 0 #ff3b30; }
+            50% { text-shadow: -2px 0 0 #00ffff, 2px 0 0 #ff3b30; }
+            100% { text-shadow: 2px 0 0 #00ffff, -2px 0 0 #ff3b30; }
         }
+
         p {
-            color: #8e8e93;
+            color: #d1d5db;
             font-size: 14px;
-            margin-bottom: 30px;
+            line-height: 1.6;
+            margin-bottom: 25px;
         }
+        
+        .timer-box {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ffcc00;
+            font-family: 'Courier New', Courier, monospace;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ffcc00;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+
         .btn-action {
-            background-color: #007aff;
+            background: linear-gradient(135deg, #ff3b30, #b31b1b);
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 15px;
+            font-size: 15px;
+            font-weight: bold;
             border-radius: 12px;
             cursor: pointer;
             width: 100%;
+            box-shadow: 0 4px 15px rgba(255, 59, 48, 0.4);
+            transition: transform 0.1s;
         }
-
-        /* ================= TAMPILAN EKSTREM HACKED ================= */
-        #hackedScreen {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000;
-            z-index: 9999;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Courier New', Courier, monospace;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        /* Efek Gemetar Layar Rusak */
-        @keyframes glitchGetar {
-            0% { transform: translate(2px, 1px) skew(2deg); }
-            20% { transform: translate(-2px, -2px) skew(-2deg); }
-            40% { transform: translate(0px, 3px) scaleY(1.01); }
-            60% { transform: translate(3px, -1px) skew(4deg); }
-            80% { transform: translate(-3px, 2px) skew(-4deg); }
-            100% { transform: translate(1px, -2px) skew(0deg); }
-        }
-        .efek-glitch {
-            animation: glitchGetar 0.1s infinite;
-            border: 4px solid #ff3b30;
-        }
-
-        .alert-box {
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-        }
-        .danger-title {
-            color: #ff3b30;
-            font-size: 26px;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(255,59,48,0.8);
-            margin-bottom: 5px;
-        }
-        .danger-sub {
-            color: #fff;
-            font-size: 14px;
-            margin-bottom: 25px;
-            font-weight: bold;
-        }
-        
-        /* Ikon Gembok Api Merah */
-        .gembok-merah {
-            font-size: 70px;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px #ff3b30;
-        }
-
-        /* Loading Bar Erasing Data */
-        .progress-container {
-            width: 100%;
-            background-color: #222;
-            border: 2px solid #ff3b30;
-            height: 25px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-        .progress-bar {
-            width: 0%;
-            height: 100%;
-            background-color: #ff3b30;
-            transition: width 0.1s linear;
-        }
-        .progress-text {
-            position: absolute;
-            width: 100%;
-            top: 3px;
-            left: 0;
-            font-size: 12px;
-            font-weight: bold;
-            color: #fff;
-            text-align: center;
-        }
-
-        /* Log Data Berjalan Cepat */
-        .log-box {
-            width: 100%;
-            height: 120px;
-            background-color: #0a0a0a;
-            border: 1px solid #333;
-            border-radius: 5px;
-            padding: 10px;
-            font-size: 11px;
-            color: #00ff00;
-            text-align: left;
-            overflow: hidden;
-            white-space: nowrap;
+        .btn-action:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="screenAwal">
-        <div class="icon-lock">🔒</div>
-        <h2>DEVICE LOCKED BY DINZZOFFC</h2>
-        <p>Sistem mendeteksi aktivitas mencurigakan. Silakan klik tombol di bawah untuk memverifikasi perangkat.</p>
-        <button class="btn-action" onclick="mulaiHacked()">Verifikasi Perangkat</button>
-    </div>
-
-    <div id="hackedScreen">
-        <div class="alert-box">
-            <div class="gembok-merah">🔥🔒🔥</div>
-            <div class="danger-title">⚠️ CRITICAL SECURITY BREACH! ⚠️</div>
-            <div class="danger-sub">DEVICE LOCKED BY DINZZOFFC - RECOVERY FAILED</div>
-            
-            <div class="progress-container">
-                <div class="progress-bar" id="myBar"></div>
-                <div class="progress-text" id="barText">ATTEMPTING EMERGENCY DATA WIPE... 0%</div>
-            </div>
-
-            <div class="log-box" id="logBox">
-                [sys-init] Loading exploit payload...<br>
-            </div>
-        </div>
+    <div class="container">
+        <div style="font-size: 50px; margin-bottom: 10px;">⚠️</div>
+        <div class="glitch-title">DEVICE LOCKED</div>
+        
+        <p>Perangkat Anda telah dikunci oleh sistem keamanan <b>DinzzOffc</b>. Untuk membuka kembali akses penuh sistem, silakan lakukan penyelesaian administrasi ke DANA <b>081xxxxxxxxx</b>.</p>
+        
+        <div class="timer-box" id="timer">00:60</div>
+        
+        <button class="btn-action" onclick="bukaKunci()">PROSES PEMBUKAAN</button>
     </div>
 
     <script>
-        const logs = [
-            "[unauthorized] Access detected: #DINZZOFFC_HACK",
-            "[sudo-code] override_system_biometric: DENIED",
-            "[sudo-code] injecting_kernel_payload... SUCCESS",
-            "[security] Integrity compromised! Error: 0x8004100C",
-            "[dump] Extracting contact list...",
-            "[dump] Extracting photos and gallery...",
-            "[wipe] Target: /dev/block/bootdevice/by-name/userdata",
-            "[wipe] Deleting system partition...",
-            "[sys-error] Overheating detected! Core Temp: 94C",
-            "[warning] DO NOT POWER OFF DEVICE!"
-        ];
-
-        function mulaiHacked() {
-            // Hide layar awal, tampilin layar hacked
-            document.getElementById("screenAwal").style.display = "none";
-            const hackedScreen = document.getElementById("hackedScreen");
-            hackedScreen.style.display = "flex";
-            hackedScreen.classList.add("efek-glitch");
-
-            // Jalankan teks log ala hacker berjalan
-            let logIdx = 0;
-            const logBox = document.getElementById("logBox");
-            const logInterval = setInterval(() => {
-                if (logIdx < logs.length) {
-                    logBox.innerHTML += logs[logIdx] + "<br>";
-                    logIdx++;
-                } else {
-                    clearInterval(logInterval);
-                }
-            }, 300);
-
-            // Jalankan Loading Bar Merah sampai 94%
-            let width = 0;
-            const bar = document.getElementById("myBar");
-            const barText = document.getElementById("barText");
+        let waktu = 60;
+        const timerElement = document.getElementById('timer');
+        
+        const hitungMundur = setInterval(() => {
+            waktu--;
+            let detik = waktu < 10 ? "0" + waktu : waktu;
+            timerElement.innerText = "00:" + detik;
             
-            const progressInterval = setInterval(() => {
-                if (width >= 94) {
-                    clearInterval(progressInterval);
-                    // Pas mentok 94%, langsung tembak pake Pop-Up Alert beruntun!
-                    jalankanAlert();
-                } else {
-                    width += 2;
-                    bar.style.width = width + '%';
-                    barText.innerText = "ERASING INTERNAL STORAGE... " + width + "%";
-                }
-            }, 80);
+            if (waktu <= 0) {
+                clearInterval(hitungMundur);
+                timerElement.innerText = "TIME OUT";
+                timerElement.style.color = "#ff3b30";
+                timerElement.style.borderColor = "#ff3b30";
+            }
+        }, 1000);
+
+        function bersuara() {
+            let pesanSuara = new SpeechSynthesisUtterance("HAHAHA. YOUR DEVICE ALREADY LOCKED BY DINZZ OFF C");
+            pesanSuara.lang = "en-US";
+            pesanSuara.rate = 0.9;     
+            pesanSuara.pitch = 0.8;    
+            window.speechSynthesis.speak(pesanSuara);
         }
 
-        function jalankanAlert() {
-            // Alert bertubi-tubi biar makin panik pas loadingnya selesai
-            alert("🚨 SYSTEM ERROR: UI Sistem tidak menanggapi!");
-            alert("🚨 Peringatan: Kerusakan hardware terdeteksi akibat Overheating!");
-            alert("🚨 Proses penghapusan data selesai 94%. Gagal membatalkan.");
-            
-            // Pop up penutup tanda cuma prank
-            alert("Wkwkwk panik ya?! 😂 Di-prank sama DinzzOffc! Aman kok, data kamu gak dihapus. Tinggal close aja tab browser ini! 🔥");
-            
-            // Kembalikan ke normal
-            document.getElementById("hackedScreen").style.display = "none";
-            document.getElementById("screenAwal").style.display = "flex";
-            document.getElementById("hackedScreen").classList.remove("efek-glitch");
+        document.body.onclick = function() {
+            bersuara();
+            document.body.onclick = null; 
+        };
+
+        function bukaKunci() {
+            bersuara();
+
+            setTimeout(() => {
+                // Hanya memunculkan pesan ancaman palsu saja
+                alert("YAHAHA YOUR DATA ALREADY SENT TO PINJOL! 💸😈");
+            }, 500);
         }
     </script>
 
