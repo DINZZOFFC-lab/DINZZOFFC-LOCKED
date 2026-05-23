@@ -2,163 +2,210 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Locked By DinzzOffc</title>
     <style>
-        * {
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-        body {
-            background-color: #0d0f14;
-            color: #fff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        /* Mengatur dasar halaman */
+        body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #050505; /* Hitam pekat */
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            font-family: 'Courier New', Courier, monospace; /* Gaya font koding/hacker */
+            color: #ffffff;
             overflow: hidden;
-            position: relative;
         }
-        
-        /* --- EFEK PARTIKEL LATAR BELAKANG --- */
-        .bg-particles {
-            position: absolute;
+
+        /* Container utama untuk teks, gambar, dan tombol */
+        .content {
+            text-align: center;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        /* Gaya ikon kunci (Emoji) */
+        .lock-icon {
+            font-size: 100px;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(0 0 15px #ff0000);
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        /* Gaya teks peringatan */
+        .warning-text {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        /* Penekanan pada nama DinzzOffc */
+        .brand {
+            color: #ff0000;
+            font-size: 28px;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+        }
+
+        /* Container Tombol */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Style dasar tombol ala tema hacker */
+        button {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        /* Tombol Nyala (FREE) - Hijau Matrix */
+        #btnNyalakan {
+            background: transparent;
+            color: #00ff41;
+            border-color: #00ff41;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+        #btnNyalakan:hover {
+            background: #00ff41;
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
+        }
+
+        /* Tombol Mati (BERBAYAR) - Merah Neon */
+        #btnMatikan {
+            background: transparent;
+            color: #ff0000;
+            border-color: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+        #btnMatikan:hover {
+            background: #ff0000;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+
+        button:active { transform: scale(0.95); }
+
+        /* Teks Status di bagian bawah */
+        #status {
+            margin-top: 25px;
+            font-size: 0.85rem;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        /* Animasi kunci berdenyut */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        /* Efek garis-garis scan (scanlines) ala layar monitor tua */
+        .scanlines {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            ), linear-gradient(
+                90deg, 
+                rgba(255, 0, 0, 0.06), 
+                rgba(0, 255, 0, 0.02), 
+                rgba(0, 0, 255, 0.06)
+            );
+            background-size: 100% 4px, 3px 100%;
             pointer-events: none;
-        }
-        .particle {
-            position: absolute;
-            background: rgba(255, 59, 48, 0.4); /* Warna merah transparan */
-            border-radius: 50%;
-            animation: melayang 8s infinite linear;
-        }
-        /* Mengatur posisi dan ukuran acak untuk tiap partikel */
-        .p1 { width: 6px; height: 6px; left: 10%; animation-duration: 6s; animation-delay: 0s; }
-        .p2 { width: 10px; height: 10px; left: 25%; animation-duration: 9s; animation-delay: 2s; }
-        .p3 { width: 4px; height: 4px; left: 45%; animation-duration: 5s; animation-delay: 1s; }
-        .p4 { width: 8px; height: 8px; left: 65%; animation-duration: 11s; animation-delay: 3s; }
-        .p5 { width: 5px; height: 5px; left: 85%; animation-duration: 7s; animation-delay: 0s; }
-        
-        @keyframes melayang {
-            0% { transform: translateY(105vh) scale(0.5); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-        }
-
-        /* Kotak Utama Konten */
-        .container {
-            position: relative;
-            z-index: 2; /* Supaya kotak berada di atas partikel */
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            background: rgba(20, 26, 38, 0.95);
-            padding: 35px 25px;
-            border-radius: 24px;
-            border: 2px solid #ff3b30;
-            box-shadow: 0 0 25px rgba(255, 59, 48, 0.4);
-            transition: transform 0.1s;
-        }
-        
-        .gembok {
-            font-size: 65px;
-            margin-bottom: 15px;
-            animation: pulseGembok 2s infinite alternate;
-        }
-        @keyframes pulseGembok {
-            0% { transform: scale(1); filter: drop-shadow(0 0 5px #ff3b30); }
-            100% { transform: scale(1.05); filter: drop-shadow(0 0 15px #ff3b30); }
-        }
-
-        h2 {
-            font-size: 20px;
-            font-weight: 800;
-            color: #ff3b30;
-            letter-spacing: 1px;
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
-
-        p {
-            color: #9ca3af;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .btn-pulihkan {
-            background: linear-gradient(135deg, #34c759, #248a3d);
-            color: white;
-            border: none;
-            padding: 16px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 14px;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 4px 15px rgba(52, 199, 89, 0.3);
-            text-transform: uppercase;
-        }
-
-        /* Animasi Getar */
-        @keyframes getarEkstrem {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
-            40% { transform: translate(1px, -1px) rotate(1deg); }
-            60% { transform: translate(-3px, 1px) rotate(0deg); }
-            80% { transform: translate(-1px, -1px) rotate(1deg); }
-            100% { transform: translate(1px, -2px) rotate(-1deg); }
-        }
-        .efek-getar {
-            animation: getarEkstrem 0.1s infinite;
+            z-index: 3;
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-particles">
-        <div class="particle p1"></div>
-        <div class="particle p2"></div>
-        <div class="particle p3"></div>
-        <div class="particle p4"></div>
-        <div class="particle p5"></div>
-    </div>
+    <div class="scanlines"></div>
 
-    <div class="container" id="mainBox">
-        <div class="gembok">🔒</div>
-        <h2>YOUR HANDPHONE LOCKED BY DINZZOFFC</h2>
-        <p>Sistem mendeteksi adanya interaksi tidak dikenal. Ketuk tombol di bawah untuk memulai proses pemulihan UI sistem ke kondisi semula.</p>
+    <div class="content">
+        <span class="lock-icon">🔒</span>
         
-        <button class="btn-pulihkan" onclick="mulaiPrank()">PULIHKAN SEKARANG</button>
+        <div class="warning-text">
+            YOUR HANDPHONE LOCKED BY <br>
+            <span class="brand">DINZZOFFC</span>
+        </div>
+
+        <div class="btn-container">
+            <button id="btnNyalakan">FREE</button>
+            <button id="btnMatikan">BERBAYAR</button>
+        </div>
+
+        <p id="status">SYS_STATUS: READY_TO_EXECUTE</p>
     </div>
 
     <script>
-        function mulaiPrank() {
-            const mainBox = document.getElementById("mainBox");
-            mainBox.classList.add("efek-getar");
-            
-            setTimeout(() => {
-                // Loop pop-up simulasi aman (9 kali)
-                for (let i = 1; i <= 9; i++) {
-                    alert("⚠️ UI Sistem tidak menanggapi. (" + i + "/9)");
-                }
-                
-                alert("🎉 HAHAHA YOUR DATA IS ALLREDY SENT TO PINJOL😈");
-                
-                
-                mainBox.classList.remove("efek-getar");
-            }, 300);
-        }
-    </script>
+        const btnNyalakan = document.getElementById('btnNyalakan');
+        const btnMatikan = document.getElementById('btnMatikan');
+        const statusText = document.getElementById('status');
+        let track = null;
 
+        async function controlFlash(action) {
+            try {
+                if (action === 'on') {
+                    statusText.innerText = "SYS_STATUS: INITIALIZING_FREE_MODE...";
+                    
+                    // Meminta izin kamera belakang
+                    const stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: 'environment' }
+                    });
+
+                    track = stream.getVideoTracks()[0];
+                    const capabilities = track.getCapabilities();
+
+                    // Validasi hardware flash
+                    if (!capabilities.torch) {
+                        statusText.innerText = "SYS_STATUS: ERROR_HARDWARE_NOT_SUPPORTED";
+                        return;
+                    }
+
+                    // Nyalakan Senter
+                    await track.applyConstraints({ advanced: [{ torch: true }] });
+                    statusText.innerText = "SYS_STATUS: TORCH_ACTIVATED [FREE_MODE]";
+                } else {
+                    // Logika tombol BERBAYAR (Mematikan Senter)
+                    if (track) {
+                        await track.applyConstraints({ advanced: [{ torch: false }] });
+                        track.stop();
+                    }
+                    statusText.innerText = "SYS_STATUS: TORCH_DEACTIVATED [PAID_MODE]";
+                }
+            } catch (err) {
+                console.error(err);
+                if (err.name === "NotAllowedError") {
+                    statusText.innerText = "SYS_STATUS: ACCESS_DENIED (NEED_PAYMENT?)";
+                } else {
+                    statusText.innerText = "SYS_STATUS: CRITICAL_ERROR_CHECK_HTTPS";
+                }
+            }
+        }
+
+        btnNyalakan.addEventListener('click', () => controlFlash('on'));
+        btnMatikan.addEventListener('click', () => controlFlash('off'));
+    </script>
 </body>
 </html>
